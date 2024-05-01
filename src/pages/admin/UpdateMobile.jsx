@@ -46,6 +46,10 @@ const UpdateMobile = () => {
         imageUrl: mobile.imageUrl,
         description: mobile.description,
         status: mobile.status,
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
       });
       toast.success('Chỉnh sửa thành công');
       navigate('/admin/mobile');

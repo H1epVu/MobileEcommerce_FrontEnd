@@ -62,6 +62,10 @@ const UserDetail = () => {
         }
         const { data: { user: checkUser } } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, {
             email: updateEmail,
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
         })
         console.log(user)
         if (checkUser._id !== id) {
@@ -73,8 +77,16 @@ const UserDetail = () => {
                 phone: updatePhone,
                 email: updateEmail,
                 address: updateAddress
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
             })
-            const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`)
+            const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
             setUser(currentUser)
             toast.success('Cập Nhật Thành Công')
             handleCloseInfo()
@@ -98,8 +110,16 @@ const UserDetail = () => {
             await axios.post(process.env.REACT_APP_USER_API + `update`, {
                 id: id,
                 password: CryptoJS.MD5(updatePassword).toString()
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
             })
-            const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`)
+            const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
             setUser(currentUser)
             toast.success('Đổi Mật Khẩu Thành Công');
             setUpdatePassword('')
@@ -111,7 +131,11 @@ const UserDetail = () => {
     const fetchDataModal = async (e, orderId) => {
         e.preventDefault()
         setCurrentOrderId(orderId)
-        const { data: { order: detailOrder } } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`)
+        const { data: { order: detailOrder } } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
         setOrderDetail(detailOrder)
         setOrderProduct(detailOrder.order_items)
         handleShowOrder()
@@ -120,8 +144,16 @@ const UserDetail = () => {
         await axios.post(process.env.REACT_APP_ORDER_API + `update`, {
             orderId: currentOrderId,
             status: 'aborted'
+        }, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
         })
-        const { data: { order: currentOrders } } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`)
+        const { data: { order: currentOrders } } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
         setOrders(currentOrders)
         toast.success("Hủy Đơn Hàng Thành Công")
         handleCloseOrder()
@@ -140,8 +172,16 @@ const UserDetail = () => {
             if (!id) {
                 navigate("/login")
             } else {
-                const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `/${id}`)
-                const { data: { order: currentOrders } } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`)
+                const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `/${id}`, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                })
+                const { data: { order: currentOrders } } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`, {
+                    headers: {
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                })
                 setUser(currentUser)
                 setOrders(currentOrders)
                 setUpdateName(currentUser.name)

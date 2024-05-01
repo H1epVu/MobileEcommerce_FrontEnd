@@ -8,14 +8,22 @@ import { Link } from 'react-router-dom';
 const User = () => {
     const [users, setUsers] = useState([])
     const deleteUser = async (id) => {
-        await axios.delete(process.env.REACT_APP_USER_API + `delete/${id}`)
+        await axios.delete(process.env.REACT_APP_USER_API + `delete/${id}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
         const updateUser = users.filter(user => user._id !== id);
         setUsers(updateUser)
         toast.success('Xóa Thành Công')
     }
     useEffect(() => {
         const fetchData = async () => {
-            const { data: {users: userData}} = await axios.get(process.env.REACT_APP_USER_API)
+            const { data: { users: userData } } = await axios.get(process.env.REACT_APP_USER_API, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
             setUsers(userData)
         }
         fetchData()

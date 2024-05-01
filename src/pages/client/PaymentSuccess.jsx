@@ -46,6 +46,10 @@ const PaymentSuccess = () => {
                         userPhone: userPhone,
                         address: address,
                         paymentMethod: paymentMethod
+                    }, {
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
+                        }
                     })
                     dispatch(clearCart())
                     toast.success('Đặt hàng thành công')

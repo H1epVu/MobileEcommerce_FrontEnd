@@ -9,7 +9,11 @@ const Mobile = () => {
   const [mobiles, setMobiles] = useState([])
   const handleDelete = async (itemId) => {
     try {
-      await axios.delete(process.env.REACT_APP_PRODUCT_API + `delete/${itemId}`)
+      await axios.delete(process.env.REACT_APP_PRODUCT_API + `delete/${itemId}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
       const updatedMobiles = mobiles.filter(item => item._id !== itemId);
       setMobiles(updatedMobiles);
       toast.success('Xóa sản phẩm thành công')

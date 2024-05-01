@@ -17,7 +17,11 @@ const DetailOrder = () => {
   const [list, setList] = useState([])
   useEffect(() => {
     const getDetail = async () => {
-      const { data: { order: orderData } } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`)
+      const { data: { order: orderData } } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
       setOrder(orderData)
       setList(orderData.order_items);
     }
@@ -51,6 +55,10 @@ const DetailOrder = () => {
         orderId: id,
         status: 'open',
         address: address
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
       })
       setModalOpen(false);
     }
@@ -60,6 +68,10 @@ const DetailOrder = () => {
       orderId: id,
       status: 'aborted',
       address: address
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
     })
     navigate(`/admin/order/detail/${orderId}`)
   }
@@ -68,6 +80,10 @@ const DetailOrder = () => {
       orderId: id,
       status: 'closed',
       address: address
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
     })
     navigate(`/admin/order/detail/${orderId}`)
   }

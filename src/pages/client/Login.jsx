@@ -28,6 +28,10 @@ const Login = () => {
             email: email,
             password: CryptoJS.MD5(password).toString()
         })
+        
+        const token = res.data.token
+        localStorage.setItem('token', token);
+
         const user = res.data.user
         if (!user) {
             setMessage('Email hoặc Mật khẩu không chính xác')

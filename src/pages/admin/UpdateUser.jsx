@@ -20,6 +20,10 @@ const UpdateUser = () => {
     e.preventDefault();
     const { data: user } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, {
       email: email,
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
     })
     if (user.length > 1) {
       toast.error('Email đã được đăng ký')
@@ -32,6 +36,10 @@ const UpdateUser = () => {
         address: address,
         password: password,
         role: role
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
       })
       toast.success('Cập Nhật Thành Công')
       navigate("/admin/user")
@@ -41,7 +49,11 @@ const UpdateUser = () => {
   }
   useEffect(() => {
     const fetchData = async (id) => {
-      const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`)
+      const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
       setEmail(currentUser.email)
       setName(currentUser.name)
       setPassword(currentUser.password)

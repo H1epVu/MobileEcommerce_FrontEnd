@@ -25,7 +25,7 @@ const Payment = () => {
     const handleSubmitCart = async (e) => {
         e.preventDefault()
 
-        const userId = localStorage.getItem('id')        
+        const userId = localStorage.getItem('id')
 
         if (userId) {
             try {
@@ -35,11 +35,15 @@ const Payment = () => {
                         return
                     }
 
-                    const {data: {user}} = await axios.get(process.env.REACT_APP_USER_API + `${userId}`)
-                    console.log(user)
+                    const { data: { user } } = await axios.get(process.env.REACT_APP_USER_API + `${userId}`, {
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
+                        }
+                    })
+
                     const userName = user.name
                     const userPhone = user.phone
-                    
+
                     await axios.post(process.env.REACT_APP_ORDER_API + `add`, {
                         cartItems: cartItems,
                         total: calculateTotal(),
@@ -48,6 +52,10 @@ const Payment = () => {
                         userPhone: userPhone,
                         address: address,
                         paymentMethod: paymentMethod
+                    }, {
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
+                        }
                     })
                     dispatch(clearCart())
                     toast.success('Đặt hàng thành công')
@@ -79,9 +87,14 @@ const Payment = () => {
         }
     }
     const addAdress = async () => {
-        const { data: { user: { address: currentAddress } } } = await axios.get(process.env.REACT_APP_USER_API + `${localStorage.getItem('id')}`)
+        const { data: { user: { address: currentAddress } } } = await axios.get(process.env.REACT_APP_USER_API + `${localStorage.getItem('id')}`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
         setAddress(currentAddress)
     }
+
 
     return (
         <>

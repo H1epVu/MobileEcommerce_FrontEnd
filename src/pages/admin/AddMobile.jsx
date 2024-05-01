@@ -22,6 +22,10 @@ const AddMobile = () => {
         imageUrl: imageUrl,
         description: description,
         status: 'open'
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
       });
 
       toast.success('Thêm thành công');
@@ -39,9 +43,9 @@ const AddMobile = () => {
   return (
     <div className='container'>
       <div class="header-laptop mt-5 d-flex justify-content-between">
-          <h3>Thêm Sản Phẩm</h3>
-          <Link class="btn btn-danger" to={'/admin/mobile'}>Quay Lại</Link>
-        </div>
+        <h3>Thêm Sản Phẩm</h3>
+        <Link class="btn btn-danger" to={'/admin/mobile'}>Quay Lại</Link>
+      </div>
       <div className="demo-image-container">
         {demoImage && (
           <img

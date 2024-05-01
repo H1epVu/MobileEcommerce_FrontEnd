@@ -22,6 +22,10 @@ const AddUser = () => {
     const { data: user } = await axios.post(process.env.REACT_APP_USER_API + `login`, {
       email: email,
       password: CryptoJS.MD5(password).toString()
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
     })
     if (!user) {
       toast.error('Email đã được đăng ký')
@@ -33,6 +37,10 @@ const AddUser = () => {
         address: address,
         password: CryptoJS.MD5(password).toString(),
         role: role
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
       })
       toast.success('Đăng ký thành công')
       setEmail('')
@@ -54,7 +62,7 @@ const AddUser = () => {
         <div class="mt-3">
           <form onSubmit={handleSubmit}>
             <div class="col">
-              <div class="col-md-6" style={{width: "100%"}}>
+              <div class="col-md-6" style={{ width: "100%" }}>
                 <div class="form-group">
                   <label class="control-label mt-3 mb-3">Tên:</label>
                   <input type="text" class="form-control" value={name} onChange={(e) => { setName(e.target.value) }} required />
