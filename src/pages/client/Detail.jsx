@@ -39,8 +39,9 @@ const Detail = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
-      setProduct(res.data.product)
+      const { data : product } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
+      console.log(product)
+      setProduct(product)
     }
     fetchData()
   }, [id])

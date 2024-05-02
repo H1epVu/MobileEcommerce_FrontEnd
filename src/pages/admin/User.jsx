@@ -19,7 +19,7 @@ const User = () => {
     }
     useEffect(() => {
         const fetchData = async () => {
-            const { data: { users: userData } } = await axios.get(process.env.REACT_APP_USER_API, {
+            const { data: userData } = await axios.get(process.env.REACT_APP_USER_API, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }

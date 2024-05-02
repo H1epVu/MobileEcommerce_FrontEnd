@@ -4,16 +4,12 @@ import { removeFromCart } from '../../redux/reducers/cart-reducer';
 import Table from 'react-bootstrap/Table';
 import { Link, useNavigate } from "react-router-dom"
 import NavScroll from '../../components/Navbar';
-// import axios from "axios";
-// import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { FormatNumber } from '../../Utils';
 
 const Cart = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
-  // const [address, setAddress] = useState('')
-  // const [paymentMethod, setPaymentMethod] = useState(null);
   const cartItems = useSelector((state) => state.shoppingCart.cartItems);
 
 
@@ -31,33 +27,10 @@ const Cart = () => {
       }
       localStorage.setItem('order', JSON.stringify(order));
       navigate('/payment')
-
-      // try {
-      //   if (address.trim().length < 10) {
-      //     toast.error('Hãy nhập địa chỉ hợp lệ')
-      //     return
-      //   }
-
-      //   await axios.post(process.env.REACT_APP_ORDER_API + `add`, {
-      //     cartItems: cartItems,
-      //     total: calculateTotal(),
-      //     userId: userId,
-      //     address: address,
-      //   })
-
-      //   dispatch(clearCart())
-      //   toast.success('Đặt hàng thành công')
-      // } catch (error) {
-      //   console.log(error)
-      // }
     } else {
       navigate('/login')
     }
   }
-  // const addAdress = async () => {
-  //   const { data: { user: { address: currentAddress } } } = await axios.get(process.env.REACT_APP_USER_API + `${localStorage.getItem('id')}`)
-  //   setAddress(currentAddress)
-  // }
 
   return (
     <>
@@ -105,19 +78,6 @@ const Cart = () => {
                 </tr>
               </tfoot>
             </Table>
-            {/* <div className='mt-3'>
-              {(localStorage.getItem('id')) ? (
-                <div class="input-group mb-5">
-                  <input type="text" class="form-control" placeholder="Chọn địa chỉ nhận hàng" aria-label="Recipient's username" aria-describedby="basic-addon2"
-                    onChange={(e) => setAddress(e.target.value)}
-                    value={address}
-                  />
-                  <div class="input-group-append">
-                    <button onClick={() => addAdress()} class="btn btn-outline-dark" type="button">Sử dụng địa chỉ mặc định</button>
-                  </div>
-                </div>
-              ) : null}
-            </div> */}
             <div className="text-center">
               <button
                 className={`btn btn-dark py-2 mx-2`}             >

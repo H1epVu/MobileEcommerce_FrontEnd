@@ -12,8 +12,8 @@ const Home = () => {
     const [products, setProducts] = useState([])
     useEffect(() => {
         const fetchData = async () => {
-            const response = await axios.get(process.env.REACT_APP_PRODUCT_API)
-            setProducts(response.data)
+            const { data: products } = await axios.get(process.env.REACT_APP_PRODUCT_API)
+            setProducts(products)
         }
         fetchData()
     }, [])

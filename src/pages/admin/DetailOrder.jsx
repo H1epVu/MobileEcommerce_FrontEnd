@@ -17,7 +17,7 @@ const DetailOrder = () => {
   const [list, setList] = useState([])
   useEffect(() => {
     const getDetail = async () => {
-      const { data: { order: orderData } } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`, {
+      const { data: orderData } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         }

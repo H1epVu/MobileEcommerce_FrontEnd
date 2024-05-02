@@ -82,7 +82,7 @@ const UserDetail = () => {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
-            const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
+            const { data: currentUser } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -115,7 +115,7 @@ const UserDetail = () => {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
             })
-            const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
+            const { data: currentUser } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
                 }
@@ -131,7 +131,7 @@ const UserDetail = () => {
     const fetchDataModal = async (e, orderId) => {
         e.preventDefault()
         setCurrentOrderId(orderId)
-        const { data: { order: detailOrder } } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`, {
+        const { data: detailOrder } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
@@ -149,7 +149,7 @@ const UserDetail = () => {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         })
-        const { data: { order: currentOrders } } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`, {
+        const { data: currentOrders } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
@@ -172,12 +172,12 @@ const UserDetail = () => {
             if (!id) {
                 navigate("/login")
             } else {
-                const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `/${id}`, {
+                const { data: currentUser } = await axios.get(process.env.REACT_APP_USER_API + `/${id}`, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
                 })
-                const { data: { order: currentOrders } } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`, {
+                const { data: currentOrders } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }

@@ -22,7 +22,7 @@ const UpdateMobile = () => {
   useEffect(() => {
     const fetchMobile = async () => {
       try {
-        const { data: { product: prod } } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
+        const { data: prod } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
         setMobile(prod);
       } catch (error) {
         console.error(error);

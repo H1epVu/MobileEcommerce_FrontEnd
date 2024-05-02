@@ -8,11 +8,11 @@ const Order = () => {
   const [orders, setOrders] = useState([])
   useEffect(() => {
     const fetchData = async () => {
-      const { data: { orders: ordersData } } = await axios.get(process.env.REACT_APP_ORDER_API, {
+      const { data: ordersData } = await axios.get(process.env.REACT_APP_ORDER_API, {
         headers: {
-            Authorization: 'Bearer ' + localStorage.getItem('token')
+          Authorization: 'Bearer ' + localStorage.getItem('token')
         }
-    })
+      })
       setOrders(ordersData)
     }
     fetchData()

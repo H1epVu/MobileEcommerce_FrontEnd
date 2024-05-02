@@ -24,8 +24,8 @@ const Mobile = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await axios.get(process.env.REACT_APP_PRODUCT_API)
-      setMobiles(res.data)
+      const { data } = await axios.get(process.env.REACT_APP_PRODUCT_API)
+      setMobiles(data)
     }
     fetchData()
   }, [])

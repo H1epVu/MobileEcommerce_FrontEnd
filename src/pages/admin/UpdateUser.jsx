@@ -49,7 +49,7 @@ const UpdateUser = () => {
   }
   useEffect(() => {
     const fetchData = async (id) => {
-      const { data: { user: currentUser } } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
+      const { data: currentUser } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
         headers: {
           Authorization: 'Bearer ' + localStorage.getItem('token')
         }
