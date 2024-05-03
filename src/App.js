@@ -10,6 +10,7 @@ import Register from "./pages/client/Register";
 import Cart from "./pages/client/Cart";
 import Payment from "./pages/client/Payment";
 import PaymentSuccess from "./pages/client/PaymentSuccess";
+import PaymentCancel from "./pages/client/PaymentCancel";
 import Profile from "./pages/client/Profile";
 import Mobile from "./pages/admin/Mobile";
 import Order from "./pages/admin/Order";
@@ -69,6 +70,10 @@ const router = createBrowserRouter([
       {
         path: "paymentSuccess",
         element: <PaymentSuccess />
+      },
+      {
+        path: "paymentCancel",
+        element: <PaymentCancel />
       },
       {
         path: "profile",
