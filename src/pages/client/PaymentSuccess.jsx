@@ -25,9 +25,14 @@ const PaymentSuccess = () => {
 
             if (userId) {
                 try {
-                    const { data: { user } } = await axios.get(process.env.REACT_APP_USER_API + `${userId}`)
-                    const userName = user.name
-                    const userPhone = user.phone
+                    const { data } = await axios.get(process.env.REACT_APP_USER_API + `${userId}`, {
+                        headers: {
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
+                        }
+                    })
+
+                    const userName = data.name
+                    const userPhone = data.phone
 
                     const paymentTotal = cartItems.reduce((total, item) => total + item.price * item.quantity, 0)
 
