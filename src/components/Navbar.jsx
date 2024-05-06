@@ -7,6 +7,9 @@ function NavScroll() {
     const login = () => {
         navigate('/login')
     }
+    const register = () => {
+        navigate('/register')
+    }
     const logout = () => {
         localStorage.clear();
         navigate('/')
@@ -33,8 +36,9 @@ function NavScroll() {
                         </li>
                     </ul>
                     {!id ? (
-                        <div className="d-lg-flex col-lg-3 justify-content-lg-end" onClick={login}>
-                            <button className="btn btn-light">Đăng nhập</button>
+                        <div className="d-lg-flex col-lg-3 justify-content-lg-end">
+                            <button className="btn btn-light" onClick={login}>Đăng nhập</button>
+                            <button className="btn btn-light ms-2" onClick={register}>Đăng ký</button>
                         </div>
                     ) : (
                         <div className="d-lg-flex col-lg-3 justify-content-lg-end" onClick={logout}>

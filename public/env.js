@@ -1,7 +1,7 @@
 window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\ADMIN\\AppData\\Roaming",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_10068_MRJJPGHDUBYFHLHE",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_10012_YAFXXTORMDAANHHE",
   "COLOR": "1",
   "COLORTERM": "truecolor",
   "CommonProgramFiles": "C:\\Program Files\\Common Files",
@@ -11,6 +11,8 @@ window.env = {
   "ComSpec": "C:\\Windows\\system32\\cmd.exe",
   "DriverData": "C:\\Windows\\System32\\Drivers\\DriverData",
   "EDITOR": "C:\\Windows\\notepad.exe",
+  "FPS_BROWSER_APP_PROFILE_STRING": "Internet Explorer",
+  "FPS_BROWSER_USER_PROFILE_STRING": "Default",
   "GIT_ASKPASS": "f:\\Microsoft VS Code\\resources\\app\\extensions\\git\\dist\\askpass.sh",
   "HOME": "C:\\Users\\ADMIN",
   "HOMEDRIVE": "C:",
@@ -80,7 +82,7 @@ window.env = {
   "VSCODE_GIT_ASKPASS_NODE": "F:\\Microsoft VS Code\\Code.exe",
   "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-186df57249-sock",
   "VSCODE_INJECTION": "1",
-  "VSCODE_NONCE": "83cd3ce1-e852-4aaf-8a03-d8daf3cbb949",
+  "VSCODE_NONCE": "cb321a86-ba61-45e7-9cc5-404c1230e81b",
   "windir": "C:\\Windows",
   "ZES_ENABLE_SYSMAN": "1"
 };
