@@ -32,9 +32,10 @@ const Register = () => {
         }
 
         try {
-            const res = await axios.post(`http://localhost:8080/find/email`, {email: email})
+            const { user } = await axios.post(`http://localhost:8080/user/find/email`, {email: email})
+            console.log(user)
 
-            if (res.data && res.data.user) {
+            if (user) {
                 setMessage('Email đã được đăng ký!')
                 return
             }
