@@ -32,7 +32,7 @@ const Register = () => {
         }
 
         try {
-            const { user } = await axios.post(`http://localhost:8080/user/find/email`, {email: email})
+            const { user } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, {email: email})
             console.log(user)
 
             if (user) {
@@ -54,7 +54,7 @@ const Register = () => {
                 role: "user"
             };
 
-            await axios.post(`http://localhost:8080/user/register`, newUser)
+            await axios.post(process.env.REACT_APP_USER_API + `register`, newUser)
 
             toast.success('Đăng ký thành công')
             setTimeout(() => {
