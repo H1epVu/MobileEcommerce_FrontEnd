@@ -11,7 +11,7 @@ const PaymentSuccess = () => {
             <div className='paymentSuccess'>
                 <div className='success'>
                     <i class="bi bi-bag-check"></i>
-                    <p>Đã phát sinh lỗi trong quá tình đặt </p>
+                    <p>Đơn hàng đã bị hủy</p>
                     <Link className='btn btn-outline-dark' to='/cart'>Thử lại</Link>
                 </div>
             </div>
