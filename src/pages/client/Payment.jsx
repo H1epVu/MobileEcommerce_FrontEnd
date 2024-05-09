@@ -30,19 +30,19 @@ const Payment = () => {
         if (userId) {
             try {
                 if (paymentMethod === 'COD') {
-                    if (address.trim().length < 10) {
+                    if (address.trim().length < 5) {
                         toast.error('Hãy nhập địa chỉ hợp lệ')
                         return
                     }
 
-                    const { data: { user } } = await axios.get(process.env.REACT_APP_USER_API + `${userId}`, {
+                    const { data } = await axios.get(process.env.REACT_APP_USER_API + `${userId}`, {
                         headers: {
                             Authorization: 'Bearer ' + localStorage.getItem('token')
                         }
                     })
 
-                    const userName = user.name
-                    const userPhone = user.phone
+                    const userName = data.name
+                    const userPhone = data.phone
 
                     await axios.post(process.env.REACT_APP_ORDER_API + `add`, {
                         cartItems: cartItems,
@@ -87,12 +87,12 @@ const Payment = () => {
         }
     }
     const addAdress = async () => {
-        const { data: { user: { address: currentAddress } } } = await axios.get(process.env.REACT_APP_USER_API + `${localStorage.getItem('id')}`, {
+        const { data: { address } } = await axios.get(process.env.REACT_APP_USER_API + `${localStorage.getItem('id')}`, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         })
-        setAddress(currentAddress)
+        setAddress(address)
     }
 
 
