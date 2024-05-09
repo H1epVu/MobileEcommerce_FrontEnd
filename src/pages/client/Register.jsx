@@ -76,19 +76,19 @@ const Register = () => {
                     <div className='text-danger'>{message}</div>
                     <div class="form-floating">
                         <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} class="form-control" id="Name" required />
-                        <label for="Name">Họ Và Tên:</label>
+                        <label for="Name">Họ Và Tên</label>
                     </div>
                     <div class="form-floating">
                         <input type="text" value={phone} onChange={(e) => { setPhone(e.target.value) }} class="form-control" id="Phone" required />
-                        <label for="Phone">Số Điện Thoại:</label>
+                        <label for="Phone">Số Điện Thoại</label>
                     </div>
                     <div class="form-floating">
                         <input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} class="form-control" id="Email" required />
-                        <label for="Email">Email:</label>
+                        <label for="Email">Email</label>
                     </div>
                     <div class="form-floating">
                         <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} class="form-control" id="Password" required />
-                        <label for="Password">Mật Khẩu:</label>
+                        <label for="Password">Mật Khẩu</label>
                     </div>
                     <button class="btn btn-dark w-100 py-2" type="submit" >Đăng Ký</button>
                     <span>Đã có tài khoản? <Link to="/login">Đăng nhập</Link>

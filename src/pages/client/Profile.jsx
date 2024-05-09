@@ -56,19 +56,20 @@ const UserDetail = () => {
             toast.error("Hãy nhập email hợp lệ");
             return
         }
-        if (updateAddress.trim().length < 10) {
+        if (updateAddress.trim().length < 5) {
             toast.error("Hãy nhập địa chỉ hợp lệ");
             return
         }
-        const { data: { user: checkUser } } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, {
+        const { data } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, {
             email: updateEmail,
         }, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         })
-        console.log(user)
-        if (checkUser._id !== id) {
+        console.log(data)
+
+        if (data._id !== id) {
             toast.error('Email đã được đăng ký')
         } else {
             await axios.post(process.env.REACT_APP_USER_API + `update`, {
@@ -172,7 +173,7 @@ const UserDetail = () => {
             if (!id) {
                 navigate("/login")
             } else {
-                const { data: currentUser } = await axios.get(process.env.REACT_APP_USER_API + `/${id}`, {
+                const { data: currentUser } = await axios.get(process.env.REACT_APP_USER_API + `${id}`, {
                     headers: {
                         Authorization: 'Bearer ' + localStorage.getItem('token')
                     }
