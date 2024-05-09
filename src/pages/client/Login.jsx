@@ -24,15 +24,15 @@ const Login = () => {
             setMessage("Email không đúng định dạng")
             return
         }
-        const res = await axios.post(process.env.REACT_APP_USER_API + `login`, {
+        const { data } = await axios.post(process.env.REACT_APP_USER_API + `login`, {
             email: email,
             password: CryptoJS.MD5(password).toString()
         })
-        
-        const token = res.data.token
+
+        const token = data.token
         localStorage.setItem('token', token);
 
-        const user = res.data.user
+        const user = data.user
         if (!user) {
             setMessage('Email hoặc Mật khẩu không chính xác')
             return
@@ -61,7 +61,7 @@ const Login = () => {
                             onChange={(e) => { setEmail(e.target.value) }}
                             required
                         />
-                        <label for="Email">Email:</label>
+                        <label for="Email">Email</label>
                     </div>
                     <div className="form-floating">
                         <input
@@ -75,8 +75,12 @@ const Login = () => {
                         <label for="Password">Mật Khẩu</label>
                     </div>
                     <button className="btn btn-dark w-100 py-2" type="submit">Đăng Nhập</button>
-                    <span>Chưa có tài khoản? <Link to="/register">Đăng Ký</Link>
-                    </span>
+                    <div class="d-block">
+                        <span>Chưa có tài khoản? <a href="/register">Đăng Ký</a></span>
+                    </div>
+                    <div class="d-block">
+                        <span><a href="/forgetPassword">Quên mật khẩu</a></span>
+                    </div>
                 </form>
             </div>
         </>
