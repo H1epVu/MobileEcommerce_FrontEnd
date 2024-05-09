@@ -102,6 +102,31 @@
         }
     }
 
+    .forget-password {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100%;
+
+        form {
+            max-width: 600px;
+            padding: 1rem;
+
+
+            .form-floating {
+                margin-block: 15px;
+            }
+
+            span {
+                font-size: 12px;
+                text-align: center;
+            }
+        }
+
+    }
+
     .detail {
 
         input {

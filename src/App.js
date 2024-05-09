@@ -27,6 +27,8 @@ import "./style.scss";
 import { Provider } from 'react-redux';
 import store from "./redux/Store";
 import { ToastContainer } from "react-toastify";
+import ForgetPassword from "./pages/client/ForgetPassword";
+import ChangePassword from "./pages/client/ChangePassword";
 
 const router = createBrowserRouter([
   {
@@ -54,7 +56,14 @@ const router = createBrowserRouter([
         path: "login",
         element: <Login />
       },
-
+      {
+        path: "forgetPassword",
+        element: <ForgetPassword />
+      },
+      {
+        path: "changePassword/:id",
+        element: <ChangePassword />
+      },
       {
         path: "register",
         element: <Register />
