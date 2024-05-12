@@ -23,6 +23,7 @@ const DetailOrder = () => {
         }
       })
       setOrder(orderData)
+      setAddress(orderData.address)
       setList(orderData.order_items);
     }
     getDetail()
