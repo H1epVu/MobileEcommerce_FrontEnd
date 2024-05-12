@@ -15,6 +15,7 @@ import Profile from "./pages/client/Profile";
 import Mobile from "./pages/admin/Mobile";
 import Order from "./pages/admin/Order";
 import User from "./pages/admin/User";
+import Comment from "./pages/admin/Comment";
 import AddUser from "./pages/admin/AddUser";
 import UpdateUser from "./pages/admin/UpdateUser";
 import AddMobile from "./pages/admin/AddMobile";
@@ -128,6 +129,10 @@ const router = createBrowserRouter([
       {
         path: 'order/detail/:orderId',
         element: <DetailOrder />
+      },
+      {
+        path: 'comment',
+        element: <Comment />
       },
       {
         path: "*",

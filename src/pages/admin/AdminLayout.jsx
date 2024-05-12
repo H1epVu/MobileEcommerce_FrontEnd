@@ -30,6 +30,9 @@ const AdminLayout = () => {
                     <li class="nav-item">
                         <NavLink to={'/admin/order'} className="nav-link" activeClassName="active" style={{color: "white"}}>Đơn Hàng</NavLink >
                     </li>
+                    <li class="nav-item">
+                        <NavLink to={'/admin/comment'} className="nav-link" activeClassName="active" style={{color: "white"}}>Bình luận</NavLink >
+                    </li>
                 </ul>
                 <hr />
                 <div onClick={logout}>
