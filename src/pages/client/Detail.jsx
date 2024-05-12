@@ -18,6 +18,15 @@ const Detail = () => {
   const [quantity, setQuantity] = useState(1);
   const [comments, setComments] = useState([]);
   const [newComment, setNewComment] = useState('');
+  const [replyInputs, setReplyInputs] = useState({});
+
+  const handleReplyChange = (commentId, e) => {
+    const { value } = e.target;
+    setReplyInputs((prevInputs) => ({
+      ...prevInputs,
+      [commentId]: value,
+    }));
+  };
 
   const handleAddQuantity = () => {
     setQuantity(quantity + 1)
@@ -70,6 +79,40 @@ const Detail = () => {
     const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
     setComments(comments)
   };
+
+  const handleReply = async (e, commentId) => {
+    e.preventDefault();
+    if (replyInputs[commentId].trim() === '') {
+      toast.error('Không được để bình luận trống')
+      return;
+    }
+
+    const { data: { email } } = await axios.get(process.env.REACT_APP_USER_API + `${userId}`, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+
+    await axios.post(process.env.REACT_APP_COMMENT_API + `reply/add`, {
+      cmtId: commentId,
+      userId: userId,
+      email: email,
+      content: replyInputs[commentId]
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+
+    toast.success('Đăng bình luận thành công!');
+    setReplyInputs((prevInputs) => ({
+      ...prevInputs,
+      [commentId]: '',
+    }));
+    
+    const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
+    setComments(comments)
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -170,6 +213,31 @@ const Detail = () => {
                       Delete
                     </button>
                   )}
+                  {comment.replies.map((reply) => (
+                    <div className="border mt-3 mb-3 p-3">
+                      <div className='mb-1'>
+                        <strong>{reply.email}</strong>
+                      </div>
+                      <div className='mb-1'>
+                        <p>{reply.content}</p>
+                      </div>
+                      <div className='mb-1'>
+                        <small className="text-muted">Posted on: {FormatDate(reply.createdAt)}</small>
+                      </div>
+                    </div>
+                  ))}
+                  <form onSubmit={(e) => handleReply(e, comment._id)}>
+                    <div className="mt-3 mb-3">
+                      <textarea
+                        className="form-control"
+                        id="commentContent"
+                        rows="3"
+                        value={replyInputs[comment._id]}
+                        onChange={(e) => handleReplyChange(comment._id, e)}
+                      ></textarea>
+                      <button type="submit" className="btn btn-primary btn-sm mt-3">Reply</button>
+                    </div>
+                  </form>
                 </li>
               ))}
             </ul>
