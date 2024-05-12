@@ -38,12 +38,14 @@ const UserDetail = () => {
     const [currentPassword, setCurrentPassword] = useState('')
     const [updatePassword, setUpdatePassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+
     const updateUserInfo = async (e) => {
         e.preventDefault()
         setUpdateName(FormatString(updateName))
         setUpdateAddress(FormatString(updateAddress))
         setUpdateEmail(FormatString(updateEmail))
         setUpdatePhone(FormatString(updatePhone))
+
         if (!updateName || !updateEmail || !updatePhone || !updateAddress) {
             toast.error("Không được để trống");
             return
@@ -67,7 +69,6 @@ const UserDetail = () => {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         })
-        console.log(data)
 
         if (data._id !== id) {
             toast.error('Email đã được đăng ký')
@@ -141,6 +142,7 @@ const UserDetail = () => {
         setOrderProduct(detailOrder.order_items)
         handleShowOrder()
     }
+
     const cancelOrder = async () => {
         await axios.post(process.env.REACT_APP_ORDER_API + `update`, {
             orderId: currentOrderId,
@@ -168,6 +170,7 @@ const UserDetail = () => {
             return (<h5 className="text-success">Đơn Hàng Đã Thanh Toán</h5>)
         }
     }
+
     useEffect(() => {
         const fetchData = async (id) => {
             if (!id) {
@@ -365,8 +368,8 @@ const UserDetail = () => {
                                                         </div>
                                                         <Table striped bordered hover className='mt-3'>
                                                             <thead>
-                                                                <tr>
-                                                                    <th scope="col">STT</th>
+                                                                <tr className='text-center'>
+                                                                    <th scope="col" >STT</th>
                                                                     <th scope="col">Tên Sản Phẩm</th>
                                                                     <th scope="col">Số Lượng</th>
                                                                     <th scope="col">Thành Tiền</th>
@@ -374,7 +377,7 @@ const UserDetail = () => {
                                                             </thead>
                                                             <tbody>
                                                                 {orderProduct.map((item, index) => (
-                                                                    <tr key={item._id}>
+                                                                    <tr key={item._id} className='text-center'>
                                                                         <td>{index + 1}</td>
                                                                         <td>{item.name}</td>
                                                                         <td>{item.quantity}</td>
