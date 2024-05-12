@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import CryptoJS from 'crypto-js'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavScroll from '../../components/Navbar';
 import axios from 'axios';
