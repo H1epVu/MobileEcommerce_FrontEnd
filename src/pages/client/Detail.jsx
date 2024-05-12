@@ -109,22 +109,10 @@ const Detail = () => {
       ...prevInputs,
       [commentId]: '',
     }));
-    
+
     const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
     setComments(comments)
   }
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data: product } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
-      setProduct(product)
-
-      const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
-      setComments(comments)
-
-    }
-    fetchData()
-  }, [id])
 
   const handleDelete = async (commentId) => {
     try {
@@ -140,6 +128,37 @@ const Detail = () => {
       console.log(error)
     }
   };
+
+  const handleDeleteReply = async (replyId, cmtId) => {
+    try {
+      await axios.delete(process.env.REACT_APP_COMMENT_API + `delete/${cmtId}/${replyId}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+
+      const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
+      setComments(comments)
+
+      toast.success('Xóa bình luận thành công')
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data: product } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
+      setProduct(product)
+
+      const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
+      setComments(comments)
+
+    }
+    fetchData()
+  }, [id])
+
 
   const status = (status) => {
     if (status === "0") {
@@ -193,7 +212,7 @@ const Detail = () => {
           </div>
         </section>
         <div className='mb-4'>
-          <h1>Comments</h1>
+          <h1 className='mb-4'>Comments</h1>
           {comments.length > 0 ? (
             <ul className="list-group">
               {comments.map((comment) => (
@@ -207,7 +226,7 @@ const Detail = () => {
                   </div>
                   {userId === comment.userId && (
                     <button
-                      className="btn btn-danger btn-sm mt-2"
+                      className="btn btn-danger btn-sm mt-2 "
                       onClick={() => handleDelete(comment._id)}
                     >
                       Delete
@@ -224,20 +243,37 @@ const Detail = () => {
                       <div className='mb-1'>
                         <small className="text-muted">Posted on: {FormatDate(reply.createdAt)}</small>
                       </div>
+                      {userId === reply.userId && (
+                        <button
+                          className="btn btn-danger btn-sm mt-2"
+                          onClick={() => handleDeleteReply(reply._id, comment._id)}
+                        >
+                          Delete
+                        </button>
+                      )}
                     </div>
                   ))}
-                  <form onSubmit={(e) => handleReply(e, comment._id)}>
-                    <div className="mt-3 mb-3">
-                      <textarea
-                        className="form-control"
-                        id="commentContent"
-                        rows="3"
-                        value={replyInputs[comment._id]}
-                        onChange={(e) => handleReplyChange(comment._id, e)}
-                      ></textarea>
-                      <button type="submit" className="btn btn-primary btn-sm mt-3">Reply</button>
+                  {userId ? (
+                    <div>
+                    <form onSubmit={(e) => handleReply(e, comment._id)}>
+                      <div className="mt-3 mb-3">
+                        <textarea
+                          className="form-control"
+                          id="commentContent"
+                          rows="3"
+                          value={replyInputs[comment._id]}
+                          onChange={(e) => handleReplyChange(comment._id, e)}
+                        ></textarea>
+                        <button type="submit" className="btn btn-primary btn-sm mt-3">Reply</button>
+                      </div>
+                    </form>
                     </div>
-                  </form>
+                  ) : (
+                    <div className='border rounded p-3'>
+                      <p>Đăng nhập để phản hồi bình luận này</p>
+                      <Link className="btn btn-dark" to={`/login`}>Reply</Link>
+                    </div>
+                  )}
                 </li>
               ))}
             </ul>
@@ -248,7 +284,7 @@ const Detail = () => {
           )}
         </div>
         <div>
-          <h2>Leave a comment</h2>
+          <h2 className='mb-4'>Leave a comment</h2>
           {userId ? (
             <form onSubmit={handleSubmit}>
               <div className="mb-3">
