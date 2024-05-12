@@ -1,7 +1,7 @@
 window.env = {
   "ALLUSERSPROFILE": "C:\\ProgramData",
   "APPDATA": "C:\\Users\\ADMIN\\AppData\\Roaming",
-  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_1676_NQXVVMCNEOTTGINZ",
+  "CHROME_CRASHPAD_PIPE_NAME": "\\\\.\\pipe\\crashpad_6420_QXUALWNDROSTXSPB",
   "COLOR": "1",
   "COLORTERM": "truecolor",
   "CommonProgramFiles": "C:\\Program Files\\Common Files",
@@ -63,6 +63,7 @@ window.env = {
   "PSModulePath": "C:\\Users\\ADMIN\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\Windows\\system32\\WindowsPowerShell\\v1.0\\Modules",
   "PUBLIC": "C:\\Users\\Public",
   "REACT_APP_AUTH_API": "http://localhost:8080/auth/",
+  "REACT_APP_COMMENT_API": "http://localhost:8080/comment/",
   "REACT_APP_MAIL_API": "http://localhost:8080/mail/",
   "REACT_APP_ORDER_API": "http://localhost:8080/order/",
   "REACT_APP_PAYMENT_API": "http://localhost:8080/payment/",
@@ -73,7 +74,7 @@ window.env = {
   "SystemRoot": "C:\\Windows",
   "TEMP": "C:\\Users\\ADMIN\\AppData\\Local\\Temp",
   "TERM_PROGRAM": "vscode",
-  "TERM_PROGRAM_VERSION": "1.89.0",
+  "TERM_PROGRAM_VERSION": "1.89.1",
   "TMP": "C:\\Users\\ADMIN\\AppData\\Local\\Temp",
   "USERDOMAIN": "FAMILY",
   "USERDOMAIN_ROAMINGPROFILE": "FAMILY",
@@ -84,7 +85,7 @@ window.env = {
   "VSCODE_GIT_ASKPASS_NODE": "F:\\Microsoft VS Code\\Code.exe",
   "VSCODE_GIT_IPC_HANDLE": "\\\\.\\pipe\\vscode-git-186df57249-sock",
   "VSCODE_INJECTION": "1",
-  "VSCODE_NONCE": "115e6781-ef4d-445c-8670-332f9954861f",
+  "VSCODE_NONCE": "b3f3fa41-eb8d-49d7-b067-1ba12fd6de6f",
   "windir": "C:\\Windows",
   "ZES_ENABLE_SYSMAN": "1"
 };

@@ -6,14 +6,18 @@ import axios from 'axios';
 import NavScroll from '../../components/Navbar';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { FormatNumber } from '../../Utils';
+import { FormatNumber, FormatDate } from '../../Utils';
+import { Link } from "react-router-dom";
 
 const Detail = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   const id = location.pathname.split('/')[2];
+  const userId = localStorage.getItem('id');
   const [product, setProduct] = useState([]);
   const [quantity, setQuantity] = useState(1);
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
 
   const handleAddQuantity = () => {
     setQuantity(quantity + 1)
@@ -37,14 +41,62 @@ const Detail = () => {
     toast.success(`Đã Thêm ${quantity} ${product.name} Vào Giỏ Hàng`);
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (newComment.trim() === '') {
+      toast.error('Không được để bình luận trống')
+      return;
+    }
+    const { data: { email } } = await axios.get(process.env.REACT_APP_USER_API + `${userId}`, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+
+    await axios.post(process.env.REACT_APP_COMMENT_API + `add`, {
+      userId: userId,
+      prodId: id,
+      email: email,
+      content: newComment
+    }, {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+      }
+    })
+
+    toast.success('Đăng bình luận thành công!');
+    setNewComment('');
+
+    const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
+    setComments(comments)
+  };
+
   useEffect(() => {
     const fetchData = async () => {
-      const { data : product } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
-      console.log(product)
+      const { data: product } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
       setProduct(product)
+
+      const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
+      setComments(comments)
+
     }
     fetchData()
   }, [id])
+
+  const handleDelete = async (commentId) => {
+    try {
+      await axios.delete(process.env.REACT_APP_COMMENT_API + `delete/${commentId}`, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+      const updatedComment = comments.filter(comment => comment._id !== commentId);
+      setComments(updatedComment)
+      toast.success('Xóa bình luận thành công')
+    } catch (error) {
+      console.log(error)
+    }
+  };
 
   const status = (status) => {
     if (status === "0") {
@@ -97,7 +149,60 @@ const Detail = () => {
             </div>
           </div>
         </section>
-      </div>
+        <div className='mb-4'>
+          <h1>Comments</h1>
+          {comments.length > 0 ? (
+            <ul className="list-group">
+              {comments.map((comment) => (
+                <li key={comment._id} className="list-group-item">
+                  <div className='mb-1'>
+                    <strong>{comment.email}</strong>
+                  </div>
+                  <div className='mb-1'>
+                    <p>{comment.content}</p>
+                    <small className="text-muted">Posted on: {FormatDate(comment.createdAt)}</small>
+                  </div>
+                  {userId === comment.userId && (
+                    <button
+                      className="btn btn-danger btn-sm mt-2"
+                      onClick={() => handleDelete(comment._id)}
+                    >
+                      Delete
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <div className="alert alert-secondary mt-3" role="alert">
+              Chưa có bình luận nào được đăng tải.
+            </div>
+          )}
+        </div>
+        <div>
+          <h2>Leave a comment</h2>
+          {userId ? (
+            <form onSubmit={handleSubmit}>
+              <div className="mb-3">
+                <label htmlFor="commentContent" className="form-label">Comment:</label>
+                <textarea
+                  className="form-control"
+                  id="commentContent"
+                  rows="3"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
+                ></textarea>
+              </div>
+              <button type="submit" className="btn btn-primary">Add</button>
+            </form>
+          ) : (
+            <div className='border rounded p-3'>
+              <p>Vui lòng đăng nhập để sử dụng chức năng</p>
+              <Link className="btn btn-outline-dark" to={`/login`}>Login</Link>
+            </div>
+          )}
+        </div>
+      </div >
     </>
   );
 };
