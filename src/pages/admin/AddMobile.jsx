@@ -11,6 +11,7 @@ const AddMobile = () => {
   const [price, setPrice] = useState('')
   const [imageUrl, setimageUrl] = useState('')
   const [description, setDescription] = useState('')
+  const [quantity, setQuantity] = useState('');
   const [demoImage, setDemoImage] = useState(null)
   const handleAddMobile = async (e) => {
     e.preventDefault();
@@ -21,6 +22,7 @@ const AddMobile = () => {
         price: price,
         imageUrl: imageUrl,
         description: description,
+        quantity: quantity,
         status: 'open'
       }, {
         headers: {
@@ -80,6 +82,15 @@ const AddMobile = () => {
             type="text"
             value={imageUrl}
             onChange={(e) => setimageUrl(e.target.value)}
+          />
+        </Form.Group>
+
+        <Form.Group className='form-group' controlId="formQuantity">
+          <Form.Label>Quantity</Form.Label>
+          <Form.Control
+            type="text"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
           />
         </Form.Group>
 
