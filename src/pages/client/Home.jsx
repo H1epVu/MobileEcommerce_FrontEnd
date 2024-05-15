@@ -70,7 +70,7 @@ const Home = () => {
                                     <div className="p-2">
                                         <form className="btn-form d-flex justify-content-between">
                                             <Link className="btn btn-outline-dark" to={`/detail/${product._id}`}>Chi tiết</Link>
-                                            {product.status === "0" ? (
+                                            {product.status === "0" || product.quantity === 0 ? (
                                                 <div>
                                                     <Button variant="outline-dark" disabled>Hết hàng</Button>
                                                 </div>
