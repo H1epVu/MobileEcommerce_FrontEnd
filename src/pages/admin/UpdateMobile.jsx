@@ -12,6 +12,7 @@ const UpdateMobile = () => {
     price: '',
     imageUrl: '',
     description: '',
+    quantity: '',
     status: '',
   });
 
@@ -45,6 +46,7 @@ const UpdateMobile = () => {
         price: mobile.price,
         imageUrl: mobile.imageUrl,
         description: mobile.description,
+        quantity: mobile.quantity,
         status: mobile.status,
       }, {
         headers: {
@@ -112,6 +114,16 @@ const UpdateMobile = () => {
             placeholder="Enter description"
             value={mobile.description}
             onChange={(e) => setMobile({ ...mobile, description: e.target.value })}
+          />
+        </Form.Group>
+
+        <Form.Group controlId="formQuantity">
+          <Form.Label>Quantity</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter quantity"
+            value={mobile.quantity}
+            onChange={(e) => setMobile({ ...mobile, quantity: e.target.value })}
           />
         </Form.Group>
 
