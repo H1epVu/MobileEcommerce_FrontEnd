@@ -57,6 +57,27 @@ const Payment = () => {
                             Authorization: 'Bearer ' + localStorage.getItem('token')
                         }
                     })
+
+                    for (const item of cartItems) {
+                        const { data: { quantity } } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${item.id}`, {
+                            headers: {
+                                Authorization: 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        const updatedQuantity = quantity - item.quantity;
+                        console.log(updatedQuantity)
+
+                        await axios.post(process.env.REACT_APP_PRODUCT_API + `update`, {
+                            id: item.id,
+                            quantity: updatedQuantity
+                        }, {
+                            headers: {
+                                Authorization: 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+                    }
+
                     dispatch(clearCart())
                     toast.success('Đặt hàng thành công')
                 }

@@ -38,8 +38,6 @@ const PaymentSuccess = () => {
 
                     const { data: { payment: paymentData } } = await axios.get(process.env.REACT_APP_PAYMENT_API + `success?paymentId=${paymentId}&PayerId=${PayerID}`)
 
-                    console.log(paymentData)
-
                     const paymentMethod = paymentData.payer.payment_method
                     const address = paymentData.payer.payer_info.shipping_address.line1 + ", " + paymentData.payer.payer_info.shipping_address.city
 
@@ -56,6 +54,27 @@ const PaymentSuccess = () => {
                             Authorization: 'Bearer ' + localStorage.getItem('token')
                         }
                     })
+
+                    for (const item of cartItems) {
+                        const { data: { quantity } } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${item.id}`, {
+                            headers: {
+                                Authorization: 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+
+                        const updatedQuantity = quantity - item.quantity;
+                        console.log(updatedQuantity)
+
+                        await axios.post(process.env.REACT_APP_PRODUCT_API + `update`, {
+                            id: item.id,
+                            quantity: updatedQuantity
+                        }, {
+                            headers: {
+                                Authorization: 'Bearer ' + localStorage.getItem('token')
+                            }
+                        });
+                    }
+
                     dispatch(clearCart())
                     toast.success('Đặt hàng thành công')
                 } catch (error) {
