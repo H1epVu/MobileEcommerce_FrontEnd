@@ -110,7 +110,7 @@ const Detail = () => {
       [commentId]: '',
     }));
 
-    const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
+    const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `prod/${id}`)
     setComments(comments)
   }
 
@@ -152,7 +152,7 @@ const Detail = () => {
       const { data: product } = await axios.get(process.env.REACT_APP_PRODUCT_API + `detail/${id}`)
       setProduct(product)
 
-      const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
+      const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `prod/${id}`)
       setComments(comments)
 
     }
@@ -160,8 +160,8 @@ const Detail = () => {
   }, [id])
 
 
-  const status = (status) => {
-    if (status === "0") {
+  const status = (product) => {
+    if (product.status === "0" || product.quantity === 0) {
       return (
         <button
           className="btn btn-outline-dark flex-shrink-0"
@@ -174,19 +174,23 @@ const Detail = () => {
       )
     } else {
       return (
-        <div className="d-flex">
-          <button className='btn btn-outline-dark mx-3' onClick={handleMinusQuantity}> - </button>
-          <div className="form-control text-center me-3">{quantity}</div>
-          <button className='btn btn-outline-dark' onClick={handleAddQuantity}> + </button>
-          < button
-            className="btn btn-outline-dark flex-shrink-0 mx-5"
-            type="button"
-            onClick={handleAddToCart}
-          >
-            <i className="bi-cart-fill me-1"></i>
-            Thêm vào giỏ hàng
-          </button >
-        </div>
+        <>
+          <div className='mb-4'>
+            <p className='fs-5 fw-bold'> Còn sẵn: {product.quantity} chiếc</p>
+          </div>
+          <div className="d-flex">
+            <button className='btn btn-outline-dark mx-3' onClick={handleMinusQuantity}> - </button>
+            <div className="form-control text-center me-3">{quantity}</div>
+            <button className='btn btn-outline-dark' onClick={handleAddQuantity}> + </button>
+            <button
+              className="btn btn-outline-dark flex-shrink-0 mx-5"
+              type="button"
+              onClick={handleAddToCart}
+            >
+              <i className="bi-cart-fill me-1"></i>
+              Thêm vào giỏ hàng
+            </button>
+          </div></>
       )
     }
   }
@@ -206,7 +210,7 @@ const Detail = () => {
                   <span>{FormatNumber(String(product.price))} đ</span>
                 </div>
                 <p className="lead">{product.description}</p>
-                {status(product.status)}
+                {status(product)}
               </div>
             </div>
           </div>
@@ -255,18 +259,18 @@ const Detail = () => {
                   ))}
                   {userId ? (
                     <div>
-                    <form onSubmit={(e) => handleReply(e, comment._id)}>
-                      <div className="mt-3 mb-3">
-                        <textarea
-                          className="form-control"
-                          id="commentContent"
-                          rows="3"
-                          value={replyInputs[comment._id]}
-                          onChange={(e) => handleReplyChange(comment._id, e)}
-                        ></textarea>
-                        <button type="submit" className="btn btn-primary btn-sm mt-3">Reply</button>
-                      </div>
-                    </form>
+                      <form onSubmit={(e) => handleReply(e, comment._id)}>
+                        <div className="mt-3 mb-3">
+                          <textarea
+                            className="form-control"
+                            id="commentContent"
+                            rows="3"
+                            value={replyInputs[comment._id]}
+                            onChange={(e) => handleReplyChange(comment._id, e)}
+                          ></textarea>
+                          <button type="submit" className="btn btn-primary btn-sm mt-3">Reply</button>
+                        </div>
+                      </form>
                     </div>
                   ) : (
                     <div className='border rounded p-3'>
