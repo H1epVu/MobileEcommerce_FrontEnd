@@ -94,6 +94,7 @@ const UserDetail = () => {
             handleCloseInfo()
         }
     }
+
     const updateUserPassword = async (e) => {
         e.preventDefault()
         if (!updatePassword || !currentPassword || !confirmPassword) {
@@ -130,6 +131,7 @@ const UserDetail = () => {
             handleClosePassword()
         }
     }
+
     const fetchDataModal = async (e, orderId) => {
         e.preventDefault()
         setCurrentOrderId(orderId)
@@ -152,6 +154,16 @@ const UserDetail = () => {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
         })
+        for (const item of orderProduct) {
+            await axios.post(process.env.REACT_APP_PRODUCT_API + `updateQuantity`, {
+                id: item.product_id,
+                quantity: item.quantity
+            }, {
+                headers: {
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+        }
         const { data: currentOrders } = await axios.get(process.env.REACT_APP_ORDER_API + `user/${id}`, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -161,6 +173,7 @@ const UserDetail = () => {
         toast.success("Hủy Đơn Hàng Thành Công")
         handleCloseOrder()
     }
+    
     const displayStatus = (status) => {
         if (status === "open") {
             return (<Button variant="danger" onClick={() => cancelOrder()}>Hủy Đơn Hàng</Button>)
