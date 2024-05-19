@@ -49,7 +49,7 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
-                <div className="search-bar m-3">
+                <div className="search-bar mt-5">
                     <form className="form-inline my-2 my-lg-0" onSubmit={handleSearch}>
                         <div className="d-flex">
                             <input className="form-control mr-sm-2" type="search" placeholder="Nhập tên sản phẩm" aria-label="Search" value={searchItem} onChange={handleInputChange} />
