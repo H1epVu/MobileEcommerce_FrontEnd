@@ -29,8 +29,13 @@ const Detail = () => {
   };
 
   const handleAddQuantity = () => {
-    setQuantity(quantity + 1)
+    if (quantity === product.quantity) {
+      toast.error("Số lượng không được vượt quá tồn kho!")
+    } else {
+      setQuantity(quantity + 1)
+    }
   }
+
   const handleMinusQuantity = () => {
     if (quantity === 1) {
       toast.error("Số lượng phải lớn hơn 1")
@@ -38,6 +43,7 @@ const Detail = () => {
       setQuantity(quantity - 1)
     }
   }
+
   const handleAddToCart = () => {
     const newItem = {
       id: product._id,
