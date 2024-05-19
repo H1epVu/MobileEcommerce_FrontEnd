@@ -134,8 +134,8 @@ const UpdateMobile = () => {
             value={mobile.status}
             onChange={(e) => setMobile({ ...mobile, status: parseInt(e.target.value, 10) })}
           >
-            <option value={1}>Còn hàng</option>
-            <option value={0}>Hết hàng</option>
+            <option value={1}>Đang mở</option>
+            <option value={0}>Ngưng kinh doanh</option>
           </Form.Control>
         </Form.Group>
 
