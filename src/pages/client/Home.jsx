@@ -33,22 +33,22 @@ const Home = () => {
         }
         fetchData()
     }, [])
-    
+
     return (
         <>
             <NavScroll />
             <div className="home m-3">
-                <section class="py-5 text-center container">
-                    <div class="row py-lg-5 bg-light">
-                        <div class="col-lg-6 col-md-8 mx-auto">
+                <div className="py-5 text-center mb-3 poster-img">
+                    <div class="row py-lg-5 text-white">
+                        <div class="col-lg-6 col-md-8 mx-auto ">
                             <h1 class="fw-light">IPHONE 15</h1>
-                            <p class="lead text-body-secondary"> <b>A16 Bionic</b> tăng cường sức mạnh cho các tính năng tiên tiến. <b>Cùng thiết kế mới đầy sáng tạo</b> sử dụng mặt lưng kính được pha màu xuyên suốt toàn bộ chất liệu.</p>
+                            <p class="lead text-white"> <b>A16 Bionic</b> tăng cường sức mạnh cho các tính năng tiên tiến. <b>Cùng thiết kế mới đầy sáng tạo</b> sử dụng mặt lưng kính được pha màu xuyên suốt toàn bộ chất liệu.</p>
                             <p>
-                                <Link class="btn btn-secondary my-2" to='/'>Coming Soon</Link>
+                                <Link class="btn btn-secondary my-2" to='/detail/664414152fa611fcdab42ab0'>Mua ngay</Link>
                             </p>
                         </div>
                     </div>
-                </section>
+                </div>
                 <div className="search-bar m-3">
                     <form className="form-inline my-2 my-lg-0" onSubmit={handleSearch}>
                         <div className="d-flex">

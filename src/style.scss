@@ -52,6 +52,14 @@
         .card-text {
             flex-grow: 1;
         }
+
+        .poster-img {
+            background-image: url('https://media.wired.com/photos/6500ad57fe61eb702d721b58/4:3/w_1913,h_1435,c_limit/Apple-iPhone-15-Pro-Hero-Gear.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: top;
+            height: 40vh;
+        }
     }
 
     .login {
