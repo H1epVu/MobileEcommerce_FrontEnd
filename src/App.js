@@ -16,11 +16,13 @@ import Mobile from "./pages/admin/Mobile";
 import Order from "./pages/admin/Order";
 import User from "./pages/admin/User";
 import Comment from "./pages/admin/Comment";
+import DetailComment from "./pages/admin/DetailComment";
 import AddUser from "./pages/admin/AddUser";
 import UpdateUser from "./pages/admin/UpdateUser";
 import AddMobile from "./pages/admin/AddMobile";
 import UpdateMobile from "./pages/admin/UpdateMobile";
 import DetailOrder from "./pages/admin/DetailOrder";
+import HomeAdmin from "./pages/admin/HomeAdmin";
 import NotFound from "./components/NotFound";
 import AdminLayout from "./pages/admin/AdminLayout";
 import UserLayout from './pages/client/UserLayout';
@@ -30,6 +32,8 @@ import store from "./redux/Store";
 import { ToastContainer } from "react-toastify";
 import ForgetPassword from "./pages/client/ForgetPassword";
 import ChangePassword from "./pages/client/ChangePassword";
+
+
 
 const router = createBrowserRouter([
   {
@@ -95,9 +99,13 @@ const router = createBrowserRouter([
       }
     ]
   }, {
-    path: "admin",
+    path: "/admin",
     element: <AdminLayout />,
     children: [
+      {
+        path: 'home',
+        element: <HomeAdmin />,
+      },
       {
         path: 'user',
         element: <User />,
@@ -133,6 +141,10 @@ const router = createBrowserRouter([
       {
         path: 'comment',
         element: <Comment />
+      },
+      {
+        path: 'comment/:id',
+        element: <DetailComment />
       },
       {
         path: "*",
