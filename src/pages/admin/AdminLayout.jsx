@@ -4,9 +4,11 @@ import { NavLink, Outlet, useNavigate } from 'react-router-dom';
 const AdminLayout = () => {
     const navigate = useNavigate()
     const role = localStorage.getItem('role')
+
     const logout = () => {
         localStorage.removeItem('id');
         localStorage.removeItem('role');
+        localStorage.removeItem('token');
         navigate('/')
         window.location.reload();
     }
@@ -17,10 +19,13 @@ const AdminLayout = () => {
     }, [role, navigate])
     return (
         <main className="d-flex flex-nowrap">
-            <div className="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style={{ width: "280px" }}>
-                <h2 className='d-flex justify-content-center'>ADMIN</h2>
+            <div className="d-flex flex-column flex-shrink-0 p-3 bg-black" style={{ width: "280px" }}>
+                <span className='d-flex justify-content-center fs-3 fs-bold font-monospace text-white'> ADMIN</span>
                 <hr />
                 <ul className="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item">
+                        <NavLink to={'/admin/home'} className="nav-link" activeClassName="active" style={{color: "white"}}>Trang chủ</NavLink >
+                    </li>
                     <li class="nav-item">
                         <NavLink to={'/admin/mobile'} className="nav-link" activeClassName="active" style={{color: "white"}}>Sản Phẩm</NavLink >
                     </li>
