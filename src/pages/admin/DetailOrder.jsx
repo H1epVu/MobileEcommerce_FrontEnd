@@ -15,6 +15,7 @@ const DetailOrder = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const [order, setOrder] = useState({})
   const [list, setList] = useState([])
+
   useEffect(() => {
     const getDetail = async () => {
       const { data: orderData } = await axios.get(process.env.REACT_APP_ORDER_API + `${orderId}`, {
@@ -29,6 +30,7 @@ const DetailOrder = () => {
     getDetail()
 
   }, [orderId, list])
+
   const checkStatus = (status) => {
     if (status === "aborted") {
       return (
@@ -74,6 +76,16 @@ const DetailOrder = () => {
         Authorization: 'Bearer ' + localStorage.getItem('token')
       }
     })
+    for (const item of list) {
+      await axios.post(process.env.REACT_APP_PRODUCT_API + `updateQuantity`, {
+        id: item.product_id,
+        quantity: item.quantity
+      }, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
+    }
     navigate(`/admin/order/detail/${orderId}`)
   }
   const confirm = async (id) => {
