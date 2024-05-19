@@ -30,7 +30,7 @@ const HomeAdmin = () => {
     }
 
     const countProducts = async () => {
-        const { data: prod } = await axios.get(process.env.REACT_APP_USER_API, {
+        const { data: prod } = await axios.get(process.env.REACT_APP_PRODUCT_API, {
             headers: {
                 Authorization: 'Bearer ' + localStorage.getItem('token')
             }
