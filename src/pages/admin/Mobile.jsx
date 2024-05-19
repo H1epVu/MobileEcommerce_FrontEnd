@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Link } from "react-router-dom"
 import { toast } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
+import { FormatNumber } from '../../Utils';
 
 const Mobile = () => {
   const [mobiles, setMobiles] = useState([])
@@ -64,7 +65,7 @@ const Mobile = () => {
             <th>Giá</th>
             <th>Số lượng</th>
             <th>Trạng thái</th>
-            <th className='d-flex justify-content-center'><Link className='btn btn-outline-success' to={`/admin/mobile/add`}>Thêm sản phẩm mới</Link></th>
+            <th className='d-flex justify-content-center'><Link className='btn btn-outline-success' to={`/admin/mobile/add`}>Thêm</Link></th>
           </tr>
         </thead>
         <tbody>
@@ -72,12 +73,12 @@ const Mobile = () => {
             <tr key={item._id} className="align-middle">
               <td><img class="rounded mx-auto d-block" src={item.imageUrl} alt="" style={{ width: '80px', height: '80px' }} /></td>
               <td>{item.name}</td>
-              <td className='text-center'>{item.price} đ</td>
+              <td className='text-center'>{FormatNumber(item.price)}đ</td>
               <td className='text-center'>{item.quantity}</td>
               <td className='text-center'>{item.status === '0' ? 'Ngưng kinh doanh' : 'Đang mở'}</td>
               <td className='text-center'>
-                <Link className='btn btn-primary' style={{ marginRight: '5px' }} to={`/admin/mobile/update/${item._id}`}>Edit</Link>
-                <Button variant="danger" onClick={() => handleDelete(item._id)}>Delete</Button>
+                <Link className='btn btn-primary' style={{ marginRight: '5px' }} to={`/admin/mobile/update/${item._id}`}>Chỉnh sửa</Link>
+                <Button variant="danger" onClick={() => handleDelete(item._id)}>Xóa</Button>
               </td>
             </tr>
           ))}
