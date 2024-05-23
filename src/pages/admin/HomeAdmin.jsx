@@ -9,6 +9,8 @@ const HomeAdmin = () => {
     const [totalProds, setTotalProds] = useState('')
     const [totalUsers, setTotalUsers] = useState('')
     const [openOrders, setOpenOrders] = useState('')
+    const [weekTotal, setWeekTotal] = useState('')
+    const [monthTotal, setMonthTotal] = useState('')
 
     const countOrders = async () => {
         const { data: orders } = await axios.get(process.env.REACT_APP_ORDER_API, {
@@ -62,11 +64,34 @@ const HomeAdmin = () => {
         setOpenOrders(total)
     }
 
+    const totalRevenue = async () => {
+        const { data: weekData } = await axios.get(process.env.REACT_APP_ORDER_API + `totalRevenue`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                type: 'week'
+            }
+        })
+        setWeekTotal(weekData[0].totalRevenue)
+
+        const { data: monthData } = await axios.get(process.env.REACT_APP_ORDER_API + `totalRevenue`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            },
+            params: {
+                type: 'month'
+            }
+        })
+        setMonthTotal(monthData[0].totalRevenue)
+    }
+
     useEffect(() => {
         countOrders()
         countProducts()
         countUsers()
         countOpenOrders()
+        totalRevenue()
     }, [])
 
     return (
@@ -118,9 +143,9 @@ const HomeAdmin = () => {
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Doanh thu theo tuần</h5>
-                                    <p class="card-text">1000 USD</p>
+                                    <p class="card-text">{FormatNumber(weekTotal)}đ</p>
                                     <h5 class="card-title">Doanh thu theo tháng</h5>
-                                    <p class="card-text">4000 USD</p>
+                                    <p class="card-text">{FormatNumber(monthTotal)}đ</p>
                                 </div>
                             </div>
                         </div>
@@ -133,9 +158,9 @@ const HomeAdmin = () => {
                                 </div>
                                 <div class="card-body">
                                     <h5 class="card-title">Đơn hàng chưa xử lý</h5>
-                                    <p class="card-text">20 đơn hàng</p>
+                                    <p class="card-text">{openOrders} đơn hàng</p>
                                     <h5 class="card-title">Đơn hàng mới theo ngày</h5>
-                                    <p class="card-text">5 đơn hàng mới</p>
+                                    <p class="card-text"> đơn hàng mới</p>
                                 </div>
                             </div>
                         </div>
