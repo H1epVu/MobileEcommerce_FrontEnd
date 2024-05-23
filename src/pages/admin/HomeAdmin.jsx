@@ -9,6 +9,7 @@ const HomeAdmin = () => {
     const [totalProds, setTotalProds] = useState('')
     const [totalUsers, setTotalUsers] = useState('')
     const [openOrders, setOpenOrders] = useState('')
+    const [dayOrders, setDayOrders] = useState('')
     const [weekTotal, setWeekTotal] = useState('')
     const [monthTotal, setMonthTotal] = useState('')
 
@@ -86,12 +87,23 @@ const HomeAdmin = () => {
         setMonthTotal(monthData[0].totalRevenue)
     }
 
+    const getDayOrders = async () => {
+        const { data } = await axios.get(process.env.REACT_APP_ORDER_API + `ordersByDate`, {
+            headers: {
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        })
+
+        setDayOrders(data.length)
+    }
+
     useEffect(() => {
         countOrders()
         countProducts()
         countUsers()
         countOpenOrders()
         totalRevenue()
+        getDayOrders()
     }, [])
 
     return (
@@ -160,7 +172,7 @@ const HomeAdmin = () => {
                                     <h5 class="card-title">Đơn hàng chưa xử lý</h5>
                                     <p class="card-text">{openOrders} đơn hàng</p>
                                     <h5 class="card-title">Đơn hàng mới theo ngày</h5>
-                                    <p class="card-text"> đơn hàng mới</p>
+                                    <p class="card-text">{dayOrders} đơn hàng mới</p>
                                 </div>
                             </div>
                         </div>
