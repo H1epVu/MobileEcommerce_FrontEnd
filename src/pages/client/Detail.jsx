@@ -242,7 +242,7 @@ const Detail = () => {
                       Delete
                     </button>
                   )}
-                  {comment.replies.map((reply) => (
+                  {comment.replies !== null && comment.replies.map((reply) => (
                     <div className="border mt-3 mb-3 p-3">
                       <div className='mb-1'>
                         <strong>{reply.email}</strong>
