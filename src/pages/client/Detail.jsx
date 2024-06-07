@@ -79,11 +79,11 @@ const Detail = () => {
       }
     })
 
+    const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `prod/${id}`)
+    setComments(comments)
+  
     toast.success('Đăng bình luận thành công!');
     setNewComment('');
-
-    const { data: comments } = await axios.get(process.env.REACT_APP_COMMENT_API + `${id}`)
-    setComments(comments)
   };
 
   const handleReply = async (e, commentId) => {
@@ -242,10 +242,10 @@ const Detail = () => {
                       Delete
                     </button>
                   )}
-                  {comment.replies !== null && comment.replies.map((reply) => (
+                  {comment.replies.map((reply) => (
                     <div className="border mt-3 mb-3 p-3">
                       <div className='mb-1'>
-                        <strong>{reply.email}</strong>
+                        <strong>{reply.email}</strong> 
                       </div>
                       <div className='mb-1'>
                         <p>{reply.content}</p>
