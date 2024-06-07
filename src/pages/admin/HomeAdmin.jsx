@@ -74,7 +74,12 @@ const HomeAdmin = () => {
                 type: 'week'
             }
         })
-        setWeekTotal(weekData[0].totalRevenue)
+
+        if (!weekData[0]) {
+            setWeekTotal('0')
+        } else {
+            setWeekTotal(weekData[0].revenue)
+        }
 
         const { data: monthData } = await axios.get(process.env.REACT_APP_ORDER_API + `totalRevenue`, {
             headers: {
@@ -84,7 +89,12 @@ const HomeAdmin = () => {
                 type: 'month'
             }
         })
-        setMonthTotal(monthData[0].totalRevenue)
+
+        if (!monthData[0]) {
+            setMonthTotal('0')
+        } else {
+            setMonthTotal(monthData[0].revenue)
+        }
     }
 
     const getDayOrders = async () => {
