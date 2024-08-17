@@ -14,26 +14,18 @@
         .product-list {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            /* 4 cột có độ rộng bằng nhau */
             gap: 20px;
-            /* Khoảng cách giữa các card */
             list-style: none;
-            /* Loại bỏ dấu đầu dòng */
             padding: 0;
-            /* Xóa padding mặc định của danh sách */
         }
 
         .product-item {
-            /* Thiết lập các phần tử con trong grid */
             display: flex;
             justify-content: center;
-            /* Căn giữa theo chiều ngang */
         }
 
-        /* Tùy chỉnh kích thước của mỗi card */
         .product-item .card {
             width: 100%;
-            /* Độ rộng tối đa của mỗi card */
         }
 
         .card {
@@ -58,7 +50,6 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: top;
-            height: 60vh;
         }
     }
 
