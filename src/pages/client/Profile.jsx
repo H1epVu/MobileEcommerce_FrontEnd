@@ -62,13 +62,7 @@ const UserDetail = () => {
             toast.error("Hãy nhập địa chỉ hợp lệ");
             return
         }
-        const { data } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, {
-            email: updateEmail,
-        }, {
-            headers: {
-                Authorization: 'Bearer ' + localStorage.getItem('token')
-            }
-        })
+        const { data } = await axios.post(`${process.env.REACT_APP_USER_API}find?email=${updateEmail}`)
 
         if (data._id !== id) {
             toast.error('Email đã được đăng ký')
@@ -173,7 +167,7 @@ const UserDetail = () => {
         toast.success("Hủy Đơn Hàng Thành Công")
         handleCloseOrder()
     }
-    
+
     const displayStatus = (status) => {
         if (status === "open") {
             return (<Button variant="danger" onClick={() => cancelOrder()}>Hủy Đơn Hàng</Button>)

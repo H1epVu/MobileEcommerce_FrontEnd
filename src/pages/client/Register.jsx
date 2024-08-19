@@ -32,7 +32,7 @@ const Register = () => {
         }
 
         try {
-            const { user } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, {email: email})
+            const { user } = await axios.get(`${process.env.REACT_APP_USER_API}find?email=${email}`)
             console.log(user)
 
             if (user) {
