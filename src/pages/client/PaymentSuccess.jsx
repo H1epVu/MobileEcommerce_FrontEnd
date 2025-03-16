@@ -12,6 +12,7 @@ const PaymentSuccess = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const cartItems = useSelector((state) => state.shoppingCart.cartItems);
+    console.log(cartItems)
     
     const url = window.location.href;
     const parsed = queryString.parseUrl(url);
@@ -65,6 +66,7 @@ const PaymentSuccess = () => {
 
                     dispatch(clearCart());
                     toast.success('Đặt hàng thành công');
+                    navigate('/')
                 } catch (error) {
                     console.log(error);
                     toast.error('Có lỗi xảy ra khi xử lý đơn hàng.');

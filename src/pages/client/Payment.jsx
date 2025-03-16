@@ -17,7 +17,6 @@ const Payment = () => {
     const [paymentMethod, setPaymentMethod] = useState('');
     const cartItems = useSelector((state) => state.shoppingCart.cartItems);
 
-
     const calculateTotal = () => {
         return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
     };
