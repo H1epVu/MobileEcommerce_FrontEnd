@@ -4,7 +4,7 @@
 The Mobile Ecommerce Frontend project is a mobile application that allows users to shop online easily and conveniently. The app provides a user-friendly interface and a smooth user experience.
 
 ## Technologies Used
-- **React Native**: The main framework for developing the mobile application.
+- **React**: The main framework for developing application.
 - **Redux**: State management for the application.
 - **Axios**: Library for making API calls.
 - **React Navigation**: Navigation between screens.
