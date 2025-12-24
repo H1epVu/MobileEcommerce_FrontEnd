@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import CryptoJS from 'crypto-js'
 import axios from 'axios';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -19,15 +18,12 @@ const AddUser = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { data: user } = await axios.post(process.env.REACT_APP_USER_API + `login`, {
-      email: email,
-      password: CryptoJS.MD5(password).toString()
-    }, {
-      headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-      }
+    const { data } = await axios.get(process.env.REACT_APP_USER_API + `find`, {
+      params: { email: email }
     })
-    if (!user) {
+    const user = data.user
+
+    if (user) {
       toast.error('Email đã được đăng ký')
     } else if (checkPhone(phone)) {
       await axios.post(process.env.REACT_APP_USER_API + `register`, {
@@ -35,7 +31,7 @@ const AddUser = () => {
         phone: phone,
         email: email,
         address: address,
-        password: CryptoJS.MD5(password).toString(),
+        password: password,
         role: role
       }, {
         headers: {
@@ -61,41 +57,41 @@ const AddUser = () => {
         </div>
         <div class="mt-3">
           <form onSubmit={handleSubmit}>
-            <div class="col">
-              <div class="col-md-6" style={{ width: "100%" }}>
-                <div class="form-group">
-                  <label class="control-label mt-3 mb-3">Tên:</label>
-                  <input type="text" class="form-control" value={name} onChange={(e) => { setName(e.target.value) }} required />
+            <div className="col">
+              <div className="col-md-6" style={{ width: "100%" }}>
+                <div className="form-group">
+                  <label className="control-label mt-3 mb-3">Tên:</label>
+                  <input type="text" className="form-control" value={name} onChange={(e) => { setName(e.target.value) }} required />
                 </div>
-                <div class="form-group">
-                  <label class="control-label mt-3 mb-3">Số Điện Thoại:</label>
-                  <input type="text" class="form-control" value={phone} onChange={(e) => { setPhone(e.target.value) }} required />
+                <div className="form-group">
+                  <label className="control-label mt-3 mb-3">Số Điện Thoại:</label>
+                  <input type="text" className="form-control" value={phone} onChange={(e) => { setPhone(e.target.value) }} required />
                 </div>
-                <div class="form-group">
-                  <label class="control-label mt-3 mb-3">Email:</label>
-                  <input type="email" class="form-control" value={email} onChange={(e) => { setEmail(e.target.value) }} required />
+                <div className="form-group">
+                  <label className="control-label mt-3 mb-3">Email:</label>
+                  <input type="email" className="form-control" value={email} onChange={(e) => { setEmail(e.target.value) }} required />
                 </div>
-                <div class="form-group">
-                  <label class="control-label mt-3 mb-3">Địa Chỉ:</label>
-                  <input type="text" class="form-control" value={address} onChange={(e) => { setAddress(e.target.value) }} required />
+                <div className="form-group">
+                  <label className="control-label mt-3 mb-3">Địa Chỉ:</label>
+                  <input type="text" className="form-control" value={address} onChange={(e) => { setAddress(e.target.value) }} required />
                 </div>
-                <div class="form-group">
-                  <label class="control-label mt-3 mb-3">Mật Khẩu:</label>
-                  <input type="password" class="form-control" value={password} onChange={(e) => { setPassword(e.target.value) }} required />
+                <div className="form-group">
+                  <label className="control-label mt-3 mb-3">Mật Khẩu:</label>
+                  <input type="password" className="form-control" value={password} onChange={(e) => { setPassword(e.target.value) }} required />
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="form-group">
-                  <label class="mt-3 mb-3" for="Status">Phân Quyền:</label>
-                  <select class="form-control mb-3" onChange={(e) => { setRole(e.target.value) }}>
+              <div className="col-md-12">
+                <div className="form-group">
+                  <label className="mt-3 mb-3" htmlFor="Status">Phân Quyền:</label>
+                  <select className="form-control mb-3" onChange={(e) => { setRole(e.target.value) }}>
                     <option value={'user'}>Người Dùng</option>
                     <option value={'admin'}>Quản Trị Viên</option>
                   </select>
                 </div>
               </div>
-              <div class="col-md-12">
-                <div class="form-group d-flex justify-content-end">
-                  <button class="btn btn-success float-right" type="submit">
+              <div className="col-md-12">
+                <div className="form-group d-flex justify-content-end">
+                  <button className="btn btn-success float-right" type="submit">
                     Thêm
                   </button>
                 </div>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
-import CryptoJS from 'crypto-js';
 import axios from 'axios';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -32,8 +31,10 @@ const Register = () => {
         }
 
         try {
-            const { user } = await axios.get(`${process.env.REACT_APP_USER_API}find?email=${email}`)
-            console.log(user)
+            const { data } = await axios.get(`${process.env.REACT_APP_USER_API}find`, {
+                params: { email }
+            })
+            const user = data.user
 
             if (user) {
                 setMessage('Email đã được đăng ký!')
@@ -50,7 +51,7 @@ const Register = () => {
                 phone: phone,
                 email: email,
                 address: " ",
-                password: CryptoJS.MD5(password).toString(),
+                password: password,
                 role: "user"
             };
 
@@ -72,25 +73,25 @@ const Register = () => {
             <NavScroll />
             <div className='register'>
                 <form className='form-signup w-100 m-auto' onSubmit={handleSubmit}>
-                    <h1 class="h3 mb-3 fw-normal">Đăng Ký</h1>
+                    <h1 className="h3 mb-3 fw-normal">Đăng Ký</h1>
                     <div className='text-danger'>{message}</div>
-                    <div class="form-floating">
-                        <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} class="form-control" id="Name" required />
-                        <label for="Name">Họ Và Tên</label>
+                    <div className="form-floating">
+                        <input type="text" value={name} onChange={(e) => { setName(e.target.value) }} className="form-control" id="Name" required />
+                        <label htmlFor="Name">Họ Và Tên</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="text" value={phone} onChange={(e) => { setPhone(e.target.value) }} class="form-control" id="Phone" required />
-                        <label for="Phone">Số Điện Thoại</label>
+                    <div className="form-floating">
+                        <input type="text" value={phone} onChange={(e) => { setPhone(e.target.value) }} className="form-control" id="Phone" required />
+                        <label htmlFor="Phone">Số Điện Thoại</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} class="form-control" id="Email" required />
-                        <label for="Email">Email</label>
+                    <div className="form-floating">
+                        <input type="email" value={email} onChange={(e) => { setEmail(e.target.value) }} className="form-control" id="Email" required />
+                        <label htmlFor="Email">Email</label>
                     </div>
-                    <div class="form-floating">
-                        <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} class="form-control" id="Password" required />
-                        <label for="Password">Mật Khẩu</label>
+                    <div className="form-floating">
+                        <input type="password" value={password} onChange={(e) => { setPassword(e.target.value) }} className="form-control" id="Password" required />
+                        <label htmlFor="Password">Mật Khẩu</label>
                     </div>
-                    <button class="btn btn-dark w-100 py-2" type="submit" >Đăng Ký</button>
+                    <button className="btn btn-dark w-100 py-2" type="submit" >Đăng Ký</button>
                     <span>Đã có tài khoản? <Link to="/login">Đăng nhập</Link>
                     </span>
                 </form>

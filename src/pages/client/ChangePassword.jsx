@@ -5,7 +5,6 @@ import axios from 'axios';
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import NavScroll from '../../components/Navbar';
-import CryptoJS from 'crypto-js';
 import Form from 'react-bootstrap/Form';
 
 const ChangePassword = () => {
@@ -34,7 +33,7 @@ const ChangePassword = () => {
 
             await axios.post(process.env.REACT_APP_USER_API + `update`, {
                 id: id,
-                password: CryptoJS.MD5(updatePassword).toString(),
+                password: updatePassword,
                 resetToken: ''
             }, {
                 headers: {

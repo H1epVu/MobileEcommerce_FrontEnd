@@ -29,10 +29,12 @@ const ForgetPassword = () => {
                 return
             }
 
-            const { data  } = await axios.post(process.env.REACT_APP_USER_API + `find/email`, { email: email })
+            const { data } = await axios.get(process.env.REACT_APP_USER_API + `find`, {
+                params: { email: email }
+            })
 
-            if (data.message) {
-                setMessage(data.message)
+            if (!data.user) {
+                setMessage('Không tìm thấy người dùng!')
                 return
             }
 
@@ -102,9 +104,9 @@ const ForgetPassword = () => {
                             onChange={(e) => { setToken(e.target.value) }}
                             required
                         />
-                        <label for="Token">Mã xác nhận</label>
+                        <label htmlFor="Token">Mã xác nhận</label>
                     </div>
-                    <button class="btn btn-dark w-100 py-2" type="submit" >Xác nhận</button>
+                    <button className="btn btn-dark w-100 py-2" type="submit" >Xác nhận</button>
                 </form>
             </div>
         </>

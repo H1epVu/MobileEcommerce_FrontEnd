@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import CryptoJS from 'crypto-js'
 import { useNavigate } from 'react-router-dom'
 import "bootstrap/dist/css/bootstrap.min.css";
 import NavScroll from '../../components/Navbar';
@@ -26,7 +25,7 @@ const Login = () => {
         }
         const { data } = await axios.post(process.env.REACT_APP_USER_API + `login`, {
             email: email,
-            password: CryptoJS.MD5(password).toString()
+            password: password
         })
 
         const token = data.token
