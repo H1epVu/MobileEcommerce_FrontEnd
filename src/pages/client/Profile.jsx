@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import CryptoJS from 'crypto-js'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import NavScroll from '../../components/Navbar';
@@ -62,9 +61,11 @@ const UserDetail = () => {
             toast.error("Hãy nhập địa chỉ hợp lệ");
             return
         }
-        const { data } = await axios.post(`${process.env.REACT_APP_USER_API}find?email=${updateEmail}`)
+        const { data } = await axios.get(`${process.env.REACT_APP_USER_API}find`, {
+            params: { email: updateEmail }
+        })
 
-        if (data._id !== id) {
+        if (data.user && data.user._id !== id) {
             toast.error('Email đã được đăng ký')
         } else {
             await axios.post(process.env.REACT_APP_USER_API + `update`, {
@@ -95,18 +96,13 @@ const UserDetail = () => {
             toast.error("Không được để trống");
             return
         }
-        if (CryptoJS.MD5(currentPassword).toString() !== user.password) {
-            console.log(CryptoJS.MD5(currentPassword).toString())
-            toast.error("Mật khẩu hiện tại không chính xác");
-            return
-        }
         if (confirmPassword !== updatePassword) {
             toast.error("Xác nhận mật khẩu không chính xác");
             return
         } else {
             await axios.post(process.env.REACT_APP_USER_API + `update`, {
                 id: id,
-                password: CryptoJS.MD5(updatePassword).toString()
+                password: updatePassword
             }, {
                 headers: {
                     Authorization: 'Bearer ' + localStorage.getItem('token')
